@@ -1,6 +1,6 @@
 package acc.br.techflow.pedido.dominio;
 
-import acc.br.techflow.pedido.dominio.enums.MetodoPagamento;
+import acc.br.techflow.pedido.dominio.enums.StatusPedidoEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,23 +15,19 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @EqualsAndHashCode(of = "id")
 @ToString(of = "id")
 @Entity
-@Table(name = "pedido")
-public class Pedido {
+@Table(name = "status_pedido")
+public class StatusPedido {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Integer id;
 
+    @Enumerated(EnumType.STRING)
+    private StatusPedidoEnum status;
+
     private LocalDateTime dataHora;
 
-    private String observacao;
-
-    @Enumerated(EnumType.STRING)
-    private MetodoPagamento metodoPagamento;
-
-    private String endereco;
-
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
+    @JoinColumn(name = "pedido_id")
+    private Pedido pedido;
 }
