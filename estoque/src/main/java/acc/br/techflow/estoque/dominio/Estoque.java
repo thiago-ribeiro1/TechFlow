@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "estoque")
 public class Estoque {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,13 +18,4 @@ public class Estoque {
 
     @NonNull
     private Integer produtoId;
-
-    public @NonNull Integer getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(@NonNull Integer quantidade) {
-        this.quantidade = quantidade;
-    }
-
 }
