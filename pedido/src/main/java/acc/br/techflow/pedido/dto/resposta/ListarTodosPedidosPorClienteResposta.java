@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ListarTodosPedidosResposta {
+public class ListarTodosPedidosPorClienteResposta {
     private Integer pedidoId;
     private LocalDateTime dataHora;
     private String observacao;
