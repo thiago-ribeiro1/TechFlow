@@ -1,6 +1,6 @@
 package acc.br.techflow.pedido.controller;
 
-import acc.br.techflow.pedido.dto.resposta.listartodos.ListarTodosPedidosResposta;
+import acc.br.techflow.pedido.dto.resposta.ListarTodosPedidosResposta;
 import acc.br.techflow.pedido.service.ListarTodosPedidosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
