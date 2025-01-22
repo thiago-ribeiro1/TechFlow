@@ -14,6 +14,6 @@ public class ConsultarClienteService {
     public void validarPorId(Integer clienteId) {
         boolean clienteCadastrado = clienteRepository.existsById(clienteId);
 
-        if(!clienteCadastrado) throw new DadoNaoEncontradoException("Cliente não cadastrado");
+        if(!clienteCadastrado) throw new DadoNaoEncontradoException("Cliente não encontrado");
     }
 }

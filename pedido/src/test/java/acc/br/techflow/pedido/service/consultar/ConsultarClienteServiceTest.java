@@ -49,6 +49,6 @@ class ConsultarClienteServiceTest {
 
         verify(clienteRepository).existsById(clienteId);
 
-        assertEquals("Cliente não cadastrado", exception.getMessage());
+        assertEquals("Cliente não encontrado", exception.getMessage());
     }
 }
