@@ -1,4 +1,4 @@
-package acc.br.techflow.pedido.dto.resposta.listartodos;
+package acc.br.techflow.pedido.dto.rabbitmq;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ItensPedidoResposta {
-    private Integer itemPedidoId;
+public class ItemPedidoRabbitMQDTO {
+
     private Integer produtoId;
     private Integer quantidade;
 }

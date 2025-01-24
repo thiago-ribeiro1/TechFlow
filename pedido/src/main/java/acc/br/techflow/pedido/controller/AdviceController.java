@@ -1,6 +1,7 @@
 package acc.br.techflow.pedido.controller;
 
 import acc.br.techflow.pedido.dto.resposta.ErroResposta;
+import acc.br.techflow.pedido.exception.DadoNaoEncontradoException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +14,26 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.*;
 
 @ControllerAdvice
 public class AdviceController {
+
+    @ExceptionHandler(DadoNaoEncontradoException.class)
+    public ResponseEntity<ErroResposta> handleDadoNaoEncontradoException(DadoNaoEncontradoException ex, HttpServletRequest request) {
+
+        HttpStatus status = NOT_FOUND;
+
+        ErroResposta erroResposta = new ErroResposta();
+        erroResposta.setDataHora(LocalDateTime.now());
+        erroResposta.setStatus(status.value());
+        erroResposta.setMotivo(status.getReasonPhrase());
+        erroResposta.setMensagem(ex.getMessage());
+        erroResposta.setPath(request.getServletPath());
+
+        return new ResponseEntity<>(erroResposta, status);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErroResposta> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex,
                                                                               HttpServletRequest request) {
