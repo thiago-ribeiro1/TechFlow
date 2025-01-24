@@ -1,7 +1,8 @@
 package acc.br.techflow.estoque.service;
 
 import acc.br.techflow.estoque.dominio.Estoque;
-import acc.br.techflow.estoque.dto.ItemPedidoDTO;
+import acc.br.techflow.estoque.dtoRabbit.ItemPedidoRabbitMQDTO;
+import acc.br.techflow.estoque.exception.RegraNegocioException;
 import acc.br.techflow.estoque.repository.EstoqueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,11 @@ public class EstoqueService {
     @Autowired
     private EstoqueRepository estoqueRepository;
 
-    public Boolean validar(List<ItemPedidoDTO> itensPedido) {
-        for (ItemPedidoDTO item : itensPedido) {
+    //Preciso validar se tem quantidade suficiente no estoque para atender todos os itens do pedido?
+    public Boolean validar(List<ItemPedidoRabbitMQDTO> itensPedido) {
+        for (ItemPedidoRabbitMQDTO item : itensPedido) {
             Integer produtoId = item.getProdutoId();
-            Integer quantidadeSolicitada = item.getQuantidadeProduto();
+            Integer quantidadeSolicitada = item.getQuantidade();
 
             Optional<Estoque> estoque = estoqueRepository.findByProdutoId(produtoId);
 
@@ -30,29 +32,32 @@ public class EstoqueService {
         return true;
     }
 
-    public Boolean validarListaPedidos(List<Integer> produtoId, List<Integer> quantidadeProduto) throws IllegalAccessException {
+    //Por http, caso passe quantidades diferentes de parâmetros ex 3 produtos e 1 quantidade só?
+    public Boolean validarListaPedidos(List<Integer> produtoId, List<Integer> quantidadeProduto) {
         if (produtoId.size() != quantidadeProduto.size()) {
-            throw new IllegalAccessException("Número de produtos e quantidades não são compatíveis");
+            throw new RegraNegocioException ("Número de produtos e quantidades não são compatíveis");
         }
-        List<ItemPedidoDTO> itensPedido = buildItensPedido(produtoId, quantidadeProduto);
+        List<ItemPedidoRabbitMQDTO> itensPedido = buildItensPedido(produtoId, quantidadeProduto);
         return validar(itensPedido);
     }
 
-    public List<ItemPedidoDTO> buildItensPedido(List<Integer> produtoId, List<Integer> quantidadeProduto) {
-        List<ItemPedidoDTO> itensPedido = new ArrayList<>();
+    // O metodo acima usa
+    public List<ItemPedidoRabbitMQDTO> buildItensPedido(List<Integer> produtoId, List<Integer> quantidadeProduto) {
+        List<ItemPedidoRabbitMQDTO> itensPedido = new ArrayList<>();
         for (int i = 0; i < produtoId.size(); i++) {
-            itensPedido.add(new ItemPedidoDTO(produtoId.get(i), quantidadeProduto.get(i)));
+            itensPedido.add(new ItemPedidoRabbitMQDTO(produtoId.get(i), quantidadeProduto.get(i)));
         }
         return itensPedido;
     }
 
-    public void atualizarEstoque(List<ItemPedidoDTO> itensPedido) {
+    public void atualizarEstoque(List<ItemPedidoRabbitMQDTO> itensPedido) {
+        //Preciso dessa validação?
         if (!validar(itensPedido)) {
-            throw new IllegalArgumentException("Estoque insuficiente para um ou mais produtos.");
+            throw new RegraNegocioException("Estoque insuficiente para um ou mais produtos.");
         }
-        for (ItemPedidoDTO item : itensPedido) {
+        for (ItemPedidoRabbitMQDTO item : itensPedido) {
             Integer produtoId = item.getProdutoId();
-            Integer quantidadeVendida = item.getQuantidadeProduto();
+            Integer quantidadeVendida = item.getQuantidade();
 
             Optional<Estoque> estoqueOptional = estoqueRepository.findByProdutoId(produtoId);
 
@@ -63,5 +68,9 @@ public class EstoqueService {
                 estoqueRepository.save(estoque);
             }
         }
+    }
+    public void processarPedidoEstoque(List<Integer> produtoIds, List<Integer> quantidades) {
+        List<ItemPedidoRabbitMQDTO> listaPedido = buildItensPedido(produtoIds, quantidades);
+        atualizarEstoque(listaPedido);
     }
 }
