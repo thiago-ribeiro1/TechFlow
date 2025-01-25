@@ -26,12 +26,11 @@ public class EstoqueListener {
         List<Integer> produtoIds = pedidoRabbitMQDTO.getProdutoIds();
         List<Integer> quantidades = pedidoRabbitMQDTO.getQuantidades();
 
-
         estoqueService.processarPedidoEstoque(produtoIds, quantidades);
         atualizarStatusPedido(pedidoRabbitMQDTO);
     }
 
-    //para produzir pra fila
+    //para produzir mensagens
     private void atualizarStatusPedido(PedidoRabbitMQDTO pedidoRabbitMQDTO) {
         StatusPedidoEnum novoStatus = StatusPedidoEnum.RETIRADA_APROVADA;
 
@@ -40,7 +39,10 @@ public class EstoqueListener {
                 LocalDateTime.now(),
                 novoStatus
         );
+        //produz mensagem para a exchange oito.ex.status-pedido
         enviarMensagemRabbitMQService.enviarMensagem(statusPedidoDTO);
+        //produz mensagem para a exchange oito.ex.pedido
+        enviarMensagemRabbitMQService.enviarMensagem("oito.retirada.aprovada", pedidoRabbitMQDTO);
     }
 }
 

@@ -17,5 +17,4 @@ public class StatusPedidoRabbitMQDTO {
     private Integer pedidoId;
     private LocalDateTime dataHora;
     private StatusPedidoEnum novoStatus;
-
 }
