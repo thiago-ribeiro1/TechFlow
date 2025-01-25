@@ -18,7 +18,7 @@ public class SwaggerConfig {
                         .version("1.0.0")
                         .description("API para gerenciamento de clientes no sistema TechFlow.")
                         .contact(new Contact()
-                                .name("TechFlow")) // Apenas o nome do contato
+                                .name("TechFlow")) 
                         .license(new License()
                                 .name("Apache 2.0")
                                 .url("http://springdoc.org")));
