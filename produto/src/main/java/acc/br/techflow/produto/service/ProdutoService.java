@@ -53,10 +53,23 @@ public class ProdutoService {
     }
 
     public Produto atualizar(Long id, Produto produto) {
+        // Consulta o produto existente
         Produto existente = consultarPorID(id);
+
+        // Atualiza os campos do produto
         existente.setNome(produto.getNome());
         existente.setDescricao(produto.getDescricao());
         existente.setValor(produto.getValor());
+
+        // Verifica se o estoque foi fornecido no objeto do produto
+        if (produto.getEstoque() != null && produto.getEstoque().getQuantidade() != null) {
+            // Atualiza a quantidade no estoque
+            Estoque estoqueExistente = existente.getEstoque();
+            estoqueExistente.setQuantidade(produto.getEstoque().getQuantidade());
+            estoqueRepository.save(estoqueExistente);
+        }
+
+        // Salva o produto atualizado
         return produtoRepository.save(existente);
     }
 
