@@ -24,7 +24,11 @@ public class ListarTodosPedidosPorClienteService {
 
         List<Pedido> todosPedidosPorCliente = pedidoRepository.findAllByClienteId(clienteId);
 
-        return todosPedidosPorCliente.stream().map(pedido -> {
+        return retornarListaDTOListarTodosPedidosPorClienteResposta(todosPedidosPorCliente);
+    }
+
+    private List<ListarTodosPedidosPorClienteResposta> retornarListaDTOListarTodosPedidosPorClienteResposta(List<Pedido> listaPedidosPorCliente) {
+        return listaPedidosPorCliente.stream().map(pedido -> {
             ListarTodosPedidosPorClienteResposta pedidoResposta = ListarTodosPedidosPorClienteMapper.INSTANCIA.converterEntidadeParaDTOResposta(pedido);
             pedidoResposta.setClienteId(pedido.getCliente().getId());
             return pedidoResposta;

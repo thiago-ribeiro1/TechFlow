@@ -18,7 +18,11 @@ public class ListarTodosPedidosService {
     public List<ListarTodosPedidosResposta> listar() {
         List<Pedido> todosPedidos = pedidoRepository.findAll();
 
-        return todosPedidos.stream().map(pedido -> {
+        return retornarListaDTOListarTodosPedidosResposta(todosPedidos);
+    }
+
+    private List<ListarTodosPedidosResposta> retornarListaDTOListarTodosPedidosResposta(List<Pedido> listaPedidos) {
+        return listaPedidos.stream().map(pedido -> {
             ListarTodosPedidosResposta pedidoResposta = ListarTodosPedidosMapper.INSTANCIA.converterEntidadeParaDTOResposta(pedido);
             pedidoResposta.setClienteId(pedido.getCliente().getId());
             return pedidoResposta;
