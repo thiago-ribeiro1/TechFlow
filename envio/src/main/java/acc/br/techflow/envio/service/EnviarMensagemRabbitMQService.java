@@ -1,7 +1,6 @@
-package acc.br.techflow.estoque.service;
+package acc.br.techflow.envio.service;
 
-import acc.br.techflow.estoque.dtoRabbit.PedidoRabbitMQDTO;
-import acc.br.techflow.estoque.dtoRabbit.StatusPedidoRabbitMQDTO;
+import acc.br.techflow.envio.dtoRabbit.StatusPedidoRabbitMQDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
@@ -11,10 +10,6 @@ import org.springframework.stereotype.Service;
 public class EnviarMensagemRabbitMQService {
 
     private RabbitTemplate rabbitTemplate;
-
-    public void enviarMensagem(String routingKey, PedidoRabbitMQDTO pedidoRabbitMQDTO) {
-        rabbitTemplate.convertAndSend("oito.ex.pedido", routingKey, pedidoRabbitMQDTO);
-    }
 
     public void enviarMensagem(StatusPedidoRabbitMQDTO statusPedidoRabbitMQDTO) {
         rabbitTemplate.convertAndSend("oito.ex.status-pedido", "", statusPedidoRabbitMQDTO);
