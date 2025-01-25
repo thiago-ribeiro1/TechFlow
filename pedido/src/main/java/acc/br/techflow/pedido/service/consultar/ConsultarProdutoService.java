@@ -14,6 +14,6 @@ public class ConsultarProdutoService {
 
     public Produto consultarPorId(Integer produtoId) {
         return produtoRepository.findById(produtoId)
-                .orElseThrow(() -> new DadoNaoEncontradoException("Produto não encontrado"));
+                .orElseThrow(() -> new DadoNaoEncontradoException("Produto de ID " + produtoId + " não encontrado"));
     }
 }

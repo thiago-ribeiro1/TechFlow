@@ -49,6 +49,6 @@ class ConsultarClienteServiceTest {
 
         verify(clienteRepository).existsById(clienteId);
 
-        assertEquals("Cliente não encontrado", exception.getMessage());
+        assertEquals("Cliente de ID "  + clienteId + " não encontrado", exception.getMessage());
     }
 }
