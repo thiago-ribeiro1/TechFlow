@@ -16,7 +16,7 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("TechFlow Clientes API")
                         .version("1.0.0")
-                        .description("API para gerenciamento de clientes no sistema TechFlow.")
+                        .description("API para gerenciamento de clientes no sistema")
                         .contact(new Contact()
                                 .name("TechFlow")) 
                         .license(new License()
