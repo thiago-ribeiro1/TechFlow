@@ -41,6 +41,9 @@ A arquitetura do TechFlow é composta por microsserviços que colaboram de forma
 
 ## :iphone: MER(Modelo Entidade - Relacionamento: 
 O MER está disponível diretamente no repositório. Você pode acessá-lo [aqui](https://github.com/thiago-ribeiro1/TechFlow/blob/main/MER%20-%20PROJETO%20FINAL.mwb).
+
+![Image](https://github.com/user-attachments/assets/b4739f71-ee7a-4e3c-b268-36c7edbbf662)
+
 ## :video_game: Dicionário de dados: 
 O dicionário de dados completo está disponível em um link externo. Você pode consultá-lo [aqui](https://docs.google.com/document/d/1_woi1staEsMuYv_biN4-PxKxfLLe0EO2o6mUcsZBVeg/edit?usp=sharing).
 
