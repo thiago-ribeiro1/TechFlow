@@ -37,7 +37,7 @@ A arquitetura do TechFlow é composta por microsserviços que colaboram de forma
 
 ## :keyboard: Fluxograma do sistema:
 
-![fluxograma](https://github.com/user-attachments/assets/63affe17-411d-40d6-a5d9-64491c6ad677)
+![Image](https://github.com/user-attachments/assets/17768215-2448-48e6-91bc-fd87852152f0)
 
 ## :iphone: MER(Modelo Entidade - Relacionamento: 
 O MER está disponível diretamente no repositório. Você pode acessá-lo [aqui](https://github.com/thiago-ribeiro1/TechFlow/blob/main/MER%20-%20PROJETO%20FINAL.mwb).
