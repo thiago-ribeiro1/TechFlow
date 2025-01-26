@@ -12,5 +12,5 @@ import lombok.Setter;
 public class ItemPedidoOpenFeignDTO {
 
     private Integer produtoId;
-    private Integer quantidadeProduto;
+    private Integer quantidade;
 }

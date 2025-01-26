@@ -27,7 +27,7 @@ public interface CadastrarPedidoMapper {
     Pedido converterDTORequisicaoParaEntidade(CadastrarPedidoRequisicao requisicao);
 
     @Mapping(target = "produtoId", source = "produtoId")
-    @Mapping(target = "quantidadeProduto", source = "quantidade")
+    @Mapping(target = "quantidade", source = "quantidade")
     List<ItemPedidoOpenFeignDTO> converterListaDTORequisicaoParaListaDTOOpenFeign(List<ItemPedidoCadastrarPedidoRequisicao> listaRequisicao);
 
     @Mapping(target = "pedidoId", source = "id")
