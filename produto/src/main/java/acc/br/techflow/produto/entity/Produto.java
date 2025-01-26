@@ -20,7 +20,7 @@ public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
+    // @JsonIgnore
     private Integer id;
 
     @Column(nullable = false, length = 50)
