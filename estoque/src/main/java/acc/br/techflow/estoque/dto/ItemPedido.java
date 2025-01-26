@@ -1,4 +1,4 @@
-package acc.br.techflow.estoque.dtoRabbit;
+package acc.br.techflow.estoque.dto;
 
 import lombok.*;
 
@@ -7,8 +7,8 @@ import lombok.*;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class ItemPedidoRabbitMQDTO {
+public class ItemPedido {
 
     private Integer produtoId;
-    private Integer quantidade;
+    private Integer quantidadeSolicitada;
 }
