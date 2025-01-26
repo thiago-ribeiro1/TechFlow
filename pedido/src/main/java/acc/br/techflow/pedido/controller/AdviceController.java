@@ -103,7 +103,7 @@ public class AdviceController {
         erroResposta.setDataHora(LocalDateTime.now());
         erroResposta.setStatus(status.value());
         erroResposta.setMotivo(status.getReasonPhrase());
-        erroResposta.setMensagem("Ocorreu algum problema interno no servidor");
+        erroResposta.setMensagem(ex.getClass() + " / " + ex.getMessage()); //"Ocorreu algum problema interno no servidor"
         erroResposta.setPath(request.getServletPath());
 
         return new ResponseEntity<>(erroResposta, status);
