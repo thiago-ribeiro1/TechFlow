@@ -1,6 +1,6 @@
 # TechFlow
 
-Está é uma aplicação baseada em microsserviços desenvolvida para gerenciar o fluxo de compras da loja online Techflow, desde a compra até o envio dos produtos. A solução utiliza o RabbitMQ para comunicação entre os microsserviços, com uma arquitetura baseada em mensagens assíncronas e escaláveis, garantindo alta disponibilidade e facilidade de manutenção.
+Esta é uma aplicação baseada em microsserviços desenvolvida para gerenciar o fluxo de compras da loja online Techflow, desde a compra até o envio dos produtos. A solução utiliza o RabbitMQ para comunicação entre os microsserviços, com uma arquitetura baseada em mensagens assíncronas e escaláveis, garantindo alta disponibilidade e facilidade de manutenção.
 
 ## :desktop_computer: Tecnologias Utilizadas: 
 
@@ -49,7 +49,7 @@ O dicionário de dados completo está disponível em um link externo. Você pode
 A cobertura de testes pode ser visualizada utilizando o JaCoCo. Ele gera um relatório que indica a porcentagem de código coberta pelos testes. Para visualizar o relatório de cobertura, basta seguir os seguintes passos:
 1. Utilizando o Maven, execute o seguinte comando:
    `mvn clean test`
-2. O relatório gerado pode ser encontrado no diretório "target/site/jacoco/index.html.md"
+2. O relatório gerado pode ser encontrado no diretório "target/site/jacoco/index.html"
 3. Abra o arquivo "index.html" em um navegador para visualizar o gráfico e as informações sobre a cobertura de testes.
 
 
