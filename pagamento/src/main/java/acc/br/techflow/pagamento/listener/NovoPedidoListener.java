@@ -13,7 +13,7 @@ public class NovoPedidoListener {
     private ProcessarPagamentoService processarPagamentoService;
 
     @RabbitListener(queues = {"oito.fl.pagamento.novo-pedido"})
-    public void novoStatus(PedidoRabbitMQDTO pedidoRabbitMQDTO) {
+    public void novoPedido(PedidoRabbitMQDTO pedidoRabbitMQDTO) {
         processarPagamentoService.processar(pedidoRabbitMQDTO);
     }
 }

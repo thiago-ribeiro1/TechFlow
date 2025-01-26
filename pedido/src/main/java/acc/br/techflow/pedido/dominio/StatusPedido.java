@@ -30,4 +30,10 @@ public class StatusPedido {
     @ManyToOne
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
+
+    public StatusPedido(StatusPedidoEnum status, LocalDateTime dataHora, Pedido pedido) {
+        this.status = status;
+        this.dataHora = dataHora;
+        this.pedido = pedido;
+    }
 }

@@ -2,18 +2,21 @@ package acc.br.techflow.pedido.service;
 
 import acc.br.techflow.pedido.dominio.*;
 import acc.br.techflow.pedido.dominio.enums.StatusPedidoEnum;
+import acc.br.techflow.pedido.dto.openfeign.ItemPedidoOpenFeignDTO;
+import acc.br.techflow.pedido.dto.rabbitmq.ItemPedidoRabbitMQDTO;
+import acc.br.techflow.pedido.dto.rabbitmq.PedidoRabbitMQDTO;
 import acc.br.techflow.pedido.dto.requisicao.CadastrarPedidoRequisicao;
 import acc.br.techflow.pedido.dto.requisicao.ItemPedidoCadastrarPedidoRequisicao;
 import acc.br.techflow.pedido.dto.resposta.CadastrarPedidoResposta;
-import acc.br.techflow.pedido.exception.DadoNaoEncontradoException;
 import acc.br.techflow.pedido.exception.DadoRepetidoException;
 import acc.br.techflow.pedido.mapper.CadastrarPedidoMapper;
+import acc.br.techflow.pedido.openfeign.EstoqueOpenFeign;
 import acc.br.techflow.pedido.repository.ItemPedidoRepository;
 import acc.br.techflow.pedido.repository.PedidoRepository;
-import acc.br.techflow.pedido.repository.ProdutoRepository;
 import acc.br.techflow.pedido.repository.StatusPedidoRepository;
 import acc.br.techflow.pedido.service.consultar.ConsultarClienteService;
 import acc.br.techflow.pedido.service.consultar.ConsultarProdutoService;
+import acc.br.techflow.pedido.service.rabbitmq.EnviarMensagemRabbitMQService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,10 +43,15 @@ public class CadastrarPedidoService {
     @Autowired
     private StatusPedidoRepository statusPedidoRepository;
 
+    @Autowired
+    private EstoqueOpenFeign estoqueOpenFeign;
+
+    @Autowired
+    private EnviarMensagemRabbitMQService enviarMensagemRabbitMQService;
+
     @Transactional
     public CadastrarPedidoResposta cadastrar(CadastrarPedidoRequisicao requisicao) {
-        List<Integer> listaIdsProdutosPedido = retornarListaComIdsDosProdutos(requisicao.getItensPedido());
-        validarSeTemIdRepetido(listaIdsProdutosPedido);
+        validarSeTemProdutoRepetido(requisicao.getItensPedido());
 
         Cliente clientePedido = consultarClienteService.consultarPorId(requisicao.getClienteId());
 
@@ -55,18 +63,33 @@ public class CadastrarPedidoService {
         List<ItemPedido> itensPedido = retornarListaItemPedidoEntidade(requisicao.getItensPedido(), pedido);
         itemPedidoRepository.saveAll(itensPedido);
 
-        StatusPedido statusPedido = new StatusPedido();
-        statusPedido.setStatus(StatusPedidoEnum.EM_ANDAMENTO);
-        statusPedido.setDataHora(LocalDateTime.now());
-        statusPedido.setPedido(pedido);
+        StatusPedido statusPedido = new StatusPedido(StatusPedidoEnum.EM_ANDAMENTO, LocalDateTime.now(), pedido);
         statusPedidoRepository.save(statusPedido);
 
+        List<ItemPedidoOpenFeignDTO> itensPedidoFormatadoParaOpenFeign = CadastrarPedidoMapper.INSTANCIA.converterListaDTORequisicaoParaListaDTOOpenFeign(requisicao.getItensPedido());
+        Boolean temEstoque = estoqueOpenFeign.validarEstoque(itensPedidoFormatadoParaOpenFeign);
 
-        return null;
+        CadastrarPedidoResposta resposta = new CadastrarPedidoResposta(pedido.getId(), "Pedido efetuado com sucesso!");
+
+        if(!temEstoque) {
+            StatusPedido statusSemEstoque = new StatusPedido(StatusPedidoEnum.SEM_ESTOQUE, LocalDateTime.now(), pedido);
+            statusPedidoRepository.save(statusSemEstoque);
+
+            return resposta;
+        }
+
+        PedidoRabbitMQDTO pedidoFormatadoParaRabbitMQ = CadastrarPedidoMapper.INSTANCIA.converterEntidadeParaDTORabbitMQ(pedido);
+        List<ItemPedidoRabbitMQDTO> itensPedidoFormatadoParaRabbitMQ = CadastrarPedidoMapper.INSTANCIA.converterListaEntidadeParaListaDTORabbitMQ(itensPedido);
+        pedidoFormatadoParaRabbitMQ.setItensPedido(itensPedidoFormatadoParaRabbitMQ);
+
+        enviarMensagemRabbitMQService.enviarMensagem("oito.novo.pedido", pedidoFormatadoParaRabbitMQ);
+
+        return resposta;
     }
 
-    private List<Integer> retornarListaComIdsDosProdutos(List<ItemPedidoCadastrarPedidoRequisicao> itensPedidoRequisicao) {
-        return itensPedidoRequisicao.stream().map(ItemPedidoCadastrarPedidoRequisicao::getProdutoId).toList();
+    private void validarSeTemProdutoRepetido(List<ItemPedidoCadastrarPedidoRequisicao> itensPedidoRequisicao) {
+        List<Integer> listaIdsProdutosPedido = itensPedidoRequisicao.stream().map(ItemPedidoCadastrarPedidoRequisicao::getProdutoId).toList();
+        validarSeTemIdRepetido(listaIdsProdutosPedido);
     }
 
     private void validarSeTemIdRepetido(List<Integer> listaIds) {
