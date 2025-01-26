@@ -34,7 +34,7 @@ A arquitetura do TechFlow é composta por microsserviços que colaboram de forma
 * **Microsserviço de Envio**:
   * Simula o envio dos produtos aos clientes.
   
-* Principais endpoints de cada serviço
+
 ## :keyboard: Fluxograma do sistema:
 
 ![fluxograma](https://github.com/user-attachments/assets/63affe17-411d-40d6-a5d9-64491c6ad677)
