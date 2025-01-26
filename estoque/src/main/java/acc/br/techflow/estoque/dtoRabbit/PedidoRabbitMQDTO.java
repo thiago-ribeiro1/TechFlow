@@ -27,7 +27,7 @@ public class PedidoRabbitMQDTO {
 
     public List<Integer> getQuantidades() {
         return itensPedido.stream()
-                .map(ItemPedidoRabbitMQDTO::getQuantidade)
+                .map(ItemPedidoRabbitMQDTO::getQuantidadeSolicitada)
                 .toList();
     }
 }

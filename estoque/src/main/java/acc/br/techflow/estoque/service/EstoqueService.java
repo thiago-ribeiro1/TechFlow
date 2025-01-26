@@ -28,7 +28,7 @@ public class EstoqueService {
 
         for (ItemPedidoRabbitMQDTO item : itensPedido) {
             Integer produtoId = item.getProdutoId();
-            Integer quantidadeVendida = item.getQuantidade();
+            Integer quantidadeVendida = item.getQuantidadeSolicitada();
 
             Optional<Estoque> estoqueOptional = estoqueRepository.findByProdutoId(produtoId);
 
@@ -44,5 +44,17 @@ public class EstoqueService {
     public void processarPedidoEstoque(List<Integer> produtoIds, List<Integer> quantidades) {
         List<ItemPedidoRabbitMQDTO> listaPedido = buildItensPedido(produtoIds, quantidades);
         atualizarEstoque(listaPedido);
+    }
+
+    public Boolean validar(List<ItemPedidoRabbitMQDTO> itensPedido){
+        for(ItemPedidoRabbitMQDTO item : itensPedido){
+            Integer produtoId = item.getProdutoId();
+            Integer quantidadeSolicitada = item.getQuantidadeSolicitada();
+            Optional<Estoque> estoque = estoqueRepository.findByProdutoId(produtoId);
+            if(estoque.isEmpty() || estoque.get().getQuantidade() < quantidadeSolicitada) {
+                return false;
+            }
+        }
+        return true;
     }
 }

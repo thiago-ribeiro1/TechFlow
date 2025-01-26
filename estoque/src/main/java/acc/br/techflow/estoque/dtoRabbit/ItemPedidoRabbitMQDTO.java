@@ -10,5 +10,5 @@ import lombok.*;
 public class ItemPedidoRabbitMQDTO {
 
     private Integer produtoId;
-    private Integer quantidade;
+    private Integer quantidadeSolicitada;
 }

@@ -81,7 +81,7 @@ public class EstoqueServiceTest {
 
         List<ItemPedidoRabbitMQDTO> itensPedido = estoqueService.buildItensPedido(produtoIds, quantidades);
 
-        assertEquals(new ItemPedidoRabbitMQDTO(1, 5), itensPedido.get(0));
+         assertEquals(new ItemPedidoRabbitMQDTO(1, 5), itensPedido.get(0));
         assertEquals(new ItemPedidoRabbitMQDTO(2, 10), itensPedido.get(1));
         assertEquals(new ItemPedidoRabbitMQDTO(3, 15), itensPedido.get(2));
     }
