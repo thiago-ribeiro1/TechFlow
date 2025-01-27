@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.verify;
 
 public class EstoqueServiceTest {
@@ -37,7 +38,7 @@ public class EstoqueServiceTest {
     }
 
     @Test
-    @DisplayName("Testa atualização do estoque")
+    @DisplayName("Deve verificar se o estoque é atualizado")
     void testAtualizarEstoque() {
         Mockito.when(estoqueRepository.findByProdutoId(1)).thenReturn(Optional.of(estoqueProduto1));
         Mockito.when(estoqueRepository.findByProdutoId(2)).thenReturn(Optional.of(estoqueProduto2));
@@ -56,7 +57,7 @@ public class EstoqueServiceTest {
     }
 
     @Test
-    @DisplayName("Testa processamento do pedido no estoque")
+    @DisplayName("Deve testar o processamento do pedido no estoque")
     void testProcessarPedidoEstoque() {
         Mockito.when(estoqueRepository.findByProdutoId(1)).thenReturn(Optional.of(estoqueProduto1));
         Mockito.when(estoqueRepository.findByProdutoId(2)).thenReturn(Optional.of(estoqueProduto2));
@@ -74,7 +75,7 @@ public class EstoqueServiceTest {
     }
 
     @Test
-    @DisplayName("Testa a construção da lista de itens do pedido a partir de produtoId e quantidade")
+    @DisplayName("Deve testar a construção da lista de itens do pedido a partir de produtoId e quantidade")
     public void testBuildItensPedido() {
         List<Integer> produtoIds = Arrays.asList(1, 2, 3);
         List<Integer> quantidades = Arrays.asList(5, 10, 15);
@@ -86,4 +87,18 @@ public class EstoqueServiceTest {
         assertEquals(new ItemPedidoRabbitMQDTO(3, 15), itensPedido.get(2));
     }
 
+    //Cenários negativos
+    @Test
+    @DisplayName("Deve testar a validação do estoque com quantidade insuficiente")
+    void testValidarEstoqueComQuantidadeInsuficiente() {
+        ItemPedidoRabbitMQDTO item1 = new ItemPedidoRabbitMQDTO(1, 10);
+        ItemPedidoRabbitMQDTO item2 = new ItemPedidoRabbitMQDTO(2, 20);
+        List<ItemPedidoRabbitMQDTO> itensPedido = Arrays.asList(item1, item2);
+
+        Mockito.when(estoqueRepository.findByProdutoId(1)).thenReturn(Optional.of(estoqueProduto1));
+        Mockito.when(estoqueRepository.findByProdutoId(2)).thenReturn(Optional.of(estoqueProduto2));
+
+        Boolean resultado = estoqueService.validar(itensPedido);
+        assertFalse(resultado);
+    }
 }

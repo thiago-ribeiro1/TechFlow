@@ -31,7 +31,7 @@ public class EstoqueListener {
     }
 
     //para produzir mensagens
-    private void atualizarStatusPedido(PedidoRabbitMQDTO pedidoRabbitMQDTO) {
+    public void atualizarStatusPedido(PedidoRabbitMQDTO pedidoRabbitMQDTO) {
         StatusPedidoEnum novoStatus = StatusPedidoEnum.RETIRADA_APROVADA;
 
         StatusPedidoRabbitMQDTO statusPedidoDTO = new StatusPedidoRabbitMQDTO(
