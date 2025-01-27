@@ -44,6 +44,6 @@ public class ProcessarPagamentoService {
         Random random = new Random();
         int numeroAleatorio = random.nextInt(10);
 
-        return numeroAleatorio < 7;
+        return numeroAleatorio <= 7;
     }
 }
