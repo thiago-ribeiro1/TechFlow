@@ -1,7 +1,6 @@
 package acc.br.techflow.estoque.service;
 
 import acc.br.techflow.estoque.dominio.Estoque;
-import acc.br.techflow.estoque.dto.ItemPedido;
 import acc.br.techflow.estoque.dtoRabbit.ItemPedidoRabbitMQDTO;
 import acc.br.techflow.estoque.repository.EstoqueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +46,10 @@ public class EstoqueService {
         atualizarEstoque(listaPedido);
     }
 
-    public Boolean validar(List<ItemPedido> itensPedido){
-        for(ItemPedido item : itensPedido){
+    public Boolean validar(List<ItemPedidoRabbitMQDTO> itensPedido){
+        for(ItemPedidoRabbitMQDTO item : itensPedido){
             Integer produtoId = item.getProdutoId();
-            Integer quantidadeSolicitada = item.getQuantidadeSolicitada();
+            Integer quantidadeSolicitada = item.getQuantidade();
             Optional<Estoque> estoque = estoqueRepository.findByProdutoId(produtoId);
             if(estoque.isEmpty() || estoque.get().getQuantidade() < quantidadeSolicitada) {
                 return false;
