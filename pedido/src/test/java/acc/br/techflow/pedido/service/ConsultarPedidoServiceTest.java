@@ -9,7 +9,6 @@ import acc.br.techflow.pedido.repository.ItemPedidoRepository;
 import acc.br.techflow.pedido.repository.PedidoRepository;
 import acc.br.techflow.pedido.repository.StatusPedidoRepository;
 import org.instancio.Instancio;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -64,7 +63,6 @@ class ConsultarPedidoServiceTest {
     @DisplayName("Deve retornar erro quando ID do pedido não encontrado no banco de dados")
     void deveRetornarErroQuandoPedidoNaEncontrado() {
         Integer pedidoId = 1;
-        Pedido pedido = Instancio.of(Pedido.class).create();
 
         doThrow(DadoNaoEncontradoException.class)
                 .when(pedidoRepository).findById(pedidoId);

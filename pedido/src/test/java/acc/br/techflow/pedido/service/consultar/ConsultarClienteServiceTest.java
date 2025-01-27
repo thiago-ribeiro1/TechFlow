@@ -1,7 +1,9 @@
 package acc.br.techflow.pedido.service.consultar;
 
+import acc.br.techflow.pedido.dominio.Cliente;
 import acc.br.techflow.pedido.exception.DadoNaoEncontradoException;
 import acc.br.techflow.pedido.repository.ClienteRepository;
+import org.instancio.Instancio;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,10 +11,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ConsultarClienteServiceTest {
@@ -50,5 +52,34 @@ class ConsultarClienteServiceTest {
         verify(clienteRepository).existsById(clienteId);
 
         assertEquals("Cliente de ID "  + clienteId + " não encontrado", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Deve retornar um cliente quando o ID enviado corresponder ao ID de um cliente já cadastrado no sistema")
+    void deveRetornarUmClienteQuandoClienteCadastrado() {
+        Integer clienteId = 1;
+        Cliente cliente = Instancio.of(Cliente.class).create();
+
+        when(clienteRepository.findById(clienteId))
+                .thenReturn(Optional.ofNullable(cliente));
+
+        Cliente resposta = servicoTestado.consultarPorId(clienteId);
+
+        verify(clienteRepository).findById(clienteId);
+
+        assertNotNull(resposta);
+    }
+
+    @Test
+    @DisplayName("Deve retornar erro quando o ID enviado não corresponder ao ID de um cliente já cadastrado no sistema")
+    void deveRetornarErroQuandoIdClienteInvalido() {
+        Integer clienteId = 1;
+
+        DadoNaoEncontradoException exception =
+                assertThrows(DadoNaoEncontradoException.class, () -> servicoTestado.consultarPorId(clienteId));
+
+        verify(clienteRepository).findById(clienteId);
+
+        assertEquals("Cliente de ID " + clienteId + " não encontrado", exception.getMessage());
     }
 }

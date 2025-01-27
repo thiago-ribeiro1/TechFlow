@@ -33,7 +33,7 @@ public class ProcessarPagamentoService {
         enviarMensagemRabbitMQService.enviarMensagem("oito.pedido.pago", pedidoRabbitMQDTO);
     }
 
-    private boolean pagamentoRealizado() {
+    public boolean pagamentoRealizado() {
         try {
             // Simulação do tempo de processamento de pagamento
             Thread.sleep(5000);
@@ -44,6 +44,6 @@ public class ProcessarPagamentoService {
         Random random = new Random();
         int numeroAleatorio = random.nextInt(10);
 
-        return numeroAleatorio < 7;
+        return numeroAleatorio <= 7;
     }
 }
