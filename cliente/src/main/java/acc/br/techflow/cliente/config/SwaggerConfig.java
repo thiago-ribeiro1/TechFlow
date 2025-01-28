@@ -14,7 +14,7 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("TechFlow Clientes API")
+                        .title("TechFlow Microsserviço de cliente")
                         .version("1.0.0")
                         .description("API para gerenciamento de clientes no sistema")
                         .contact(new Contact()
