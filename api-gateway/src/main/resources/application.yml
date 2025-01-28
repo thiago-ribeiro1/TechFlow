@@ -13,22 +13,22 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: cliente-service
+        - id: servico-cliente
           uri: http://localhost:8080
           predicates:
             - Path=/api/clientes/**
 
-        - id: produto-service
+        - id: servico-produto
           uri: http://localhost:8081
           predicates:
             - Path=/api/produtos/**
 
-        - id: pedido-service
+        - id: servico-pedido
           uri: http://localhost:8082
           predicates:
             - Path=/api/pedidos/**
 
-        - id: estoque-service
+        - id: servico-estoque
           uri: http://localhost:8083
           predicates:
             - Path=/api/estoque/**
