@@ -64,7 +64,7 @@ mvn spring-boot:run
 ### 3. Swagger e Postman:
 
 #### Pelo Postman:
-- [Download do arquivo Postman](https://github.com/thiago-ribeiro1/TechFlow/blob/main/TechFlow.postman_collection.json)
+- [Download do arquivo Postman Collection](https://github.com/thiago-ribeiro1/TechFlow/blob/main/TechFlow.postman_collection.json)
 - Importe no seu Postman para testar as requisições.
 
 #### Pelo Swagger:
@@ -129,8 +129,8 @@ Cada serviço possui endpoints específicos para suas respectivas funcionalidade
   ```
 - `GET /produtos/` - Retorna todos os produtos.
 - `GET /produtos/{id}` - Retorna informações de um produto.
-- `PUT /clientes/{id}` - Atualiza um produto.
-- `DELETE /clientes/{id}` - Exclui um produto.
+- `PUT /produtos/{id}` - Atualiza um produto.
+- `DELETE /produtos/{id}` - Exclui um produto.
 
 **Microsserviço de Pedido:**
 - `POST /pedidos` - Cria um novo pedido.
