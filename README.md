@@ -22,7 +22,7 @@ Esta é uma aplicação baseada em microsserviços desenvolvida para gerenciar o
 - Java 17;
 - MySQL;
 
-## Configuração do Lombok:
+# Configuração do Lombok:
 
 Para que o Lombok funcione corretamente, siga os passos abaixo:
 
