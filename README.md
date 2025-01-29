@@ -33,7 +33,18 @@ A arquitetura do TechFlow é composta por microsserviços que colaboram de forma
   * Gerencia o estoque dos produtos.
 * **Microsserviço de Envio**:
   * Simula o envio dos produtos aos clientes.
-  
+
+## Configuração para IntelliJ IDEA (Lombok)
+
+Para que o Lombok funcione corretamente no IntelliJ IDEA, é necessário ativar o processamento de anotações. Siga os passos abaixo:
+
+1. Abra as configurações do IntelliJ IDEA:
+   - No menu, clique em **File > Settings** (ou **Ctrl+Alt+S** no Windows/Linux, **Command+,** no macOS).
+2. Navegue até **Build, Execution, Deployment > Compiler > Annotation Processors**.
+3. Certifique-se de que as seguintes opções estão habilitadas:
+   - **Enable annotation processing**
+   - **Obtain processors from project classpath**
+4. Clique em **Apply** e depois em **OK** para salvar as configurações.
 
 ## :keyboard: Fluxograma do sistema:
 
