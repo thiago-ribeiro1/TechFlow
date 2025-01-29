@@ -1,6 +1,6 @@
 # TechFlow
 
-Esta é uma aplicação baseada em microsserviços desenvolvida para gerenciar o fluxo de compras da loja online Techflow, desde a compra até o envio dos produtos. A solução utiliza o RabbitMQ para comunicação entre os microsserviços, com uma arquitetura baseada em mensagens assíncronas e escaláveis, garantindo alta disponibilidade e facilidade de manutenção.
+Esta é uma aplicação baseada em microsserviços desenvolvida para gerenciar o fluxo de compras da loja online TechFlow, desde a compra até o envio dos produtos. A solução utiliza o RabbitMQ para comunicação entre os microsserviços, com uma arquitetura baseada em mensagens assíncronas e escaláveis, garantindo alta disponibilidade e facilidade de manutenção.
 
 ## :desktop_computer: Tecnologias Utilizadas: 
 
