@@ -84,8 +84,10 @@ class CadastrarPedidoServiceTest {
 
         when(consultarClienteService.consultarPorId(requisicao.getClienteId()))
                 .thenReturn(cliente);
-        when(consultarProdutoService.consultarPorId(requisicao.getItensPedido().get(0).getProdutoId()))
-                .thenReturn(produto);
+        requisicao.getItensPedido().forEach(itemPedidoRequisicao -> {
+            when(consultarProdutoService.consultarPorId(itemPedidoRequisicao.getProdutoId()))
+                    .thenReturn(produto);
+        });
         when(estoqueOpenFeign.validarEstoque(itensPedidoFormatadoParaOpenFeignCaptor.capture())).thenReturn(true);
 
         CadastrarPedidoResposta resposta = servicoTestado.cadastrar(requisicao);
@@ -112,8 +114,10 @@ class CadastrarPedidoServiceTest {
 
         when(consultarClienteService.consultarPorId(requisicao.getClienteId()))
                 .thenReturn(cliente);
-        when(consultarProdutoService.consultarPorId(requisicao.getItensPedido().get(0).getProdutoId()))
-                .thenReturn(produto);
+        requisicao.getItensPedido().forEach(itemPedidoRequisicao -> {
+            when(consultarProdutoService.consultarPorId(itemPedidoRequisicao.getProdutoId()))
+                    .thenReturn(produto);
+        });
         when(estoqueOpenFeign.validarEstoque(itensPedidoFormatadoParaOpenFeignCaptor.capture())).thenReturn(false);
 
         CadastrarPedidoResposta resposta = servicoTestado.cadastrar(requisicao);
