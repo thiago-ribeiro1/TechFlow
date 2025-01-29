@@ -14,6 +14,7 @@ Esta é uma aplicação baseada em microsserviços desenvolvida para gerenciar o
 * **JUnit5 / Mockito**: Frameworks para testes automatizados e mocks.
 * **JaCoCo**: Ferramenta para medição de cobertura de testes.
 * **Trello**: Ferramenta de gerenciamento de tarefas utilizada para acompanhamento do progresso do projeto.
+  🔗 [Acesse nosso Trello](https://trello.com/b/gB6npr6G/academia-accenture-equipe-8)
 
 ## :gear: Configuração:
 
