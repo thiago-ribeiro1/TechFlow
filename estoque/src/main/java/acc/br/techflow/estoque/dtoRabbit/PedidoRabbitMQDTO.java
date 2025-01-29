@@ -19,15 +19,4 @@ public class PedidoRabbitMQDTO {
     private MetodoPagamento metodoPagamento;
     private String endereco;
 
-    public List<Integer> getProdutoIds() {
-        return itensPedido.stream()
-                .map(ItemPedidoRabbitMQDTO::getProdutoId)
-                .toList();
-    }
-
-    public List<Integer> getQuantidades() {
-        return itensPedido.stream()
-                .map(ItemPedidoRabbitMQDTO::getQuantidade)
-                .toList();
-    }
 }
