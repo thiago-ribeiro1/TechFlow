@@ -46,7 +46,6 @@ Para que o Lombok funcione corretamente no IntelliJ IDEA, é necessário ativar 
    - **Enable annotation processing**
    - **Obtain processors from project classpath**
 4. Clique em **Apply** e depois em **OK** para salvar as configurações.
-<br>
 
 ## :keyboard: Fluxograma do sistema:
 
