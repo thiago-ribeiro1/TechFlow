@@ -22,11 +22,11 @@ Esta é uma aplicação baseada em microsserviços desenvolvida para gerenciar o
 - Java 17;
 - MySQL;
 
-### Configuração do Lombok:
+## Configuração do Lombok:
 
 Para que o Lombok funcione corretamente, siga os passos abaixo:
 
-# No Intellij IDEA:
+- No Intellij IDEA:
 
 1. Abra as configurações do IntelliJ IDEA:
    - No menu, clique em **File > Settings** (ou **Ctrl+Alt+S** no Windows/Linux, **Command+,** no macOS).
@@ -36,7 +36,7 @@ Para que o Lombok funcione corretamente, siga os passos abaixo:
    - **Obtain processors from project classpath**
 4. Clique em **Apply** e depois em **OK** para salvar as configurações.
 
-# Outras IDE's:
+- Outras IDE's:
 
 Para demais IDE’s: Pesquise por documentações caso necessário a configuração para o correto funcionamento do Lombok.
 
