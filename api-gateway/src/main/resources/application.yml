@@ -17,18 +17,63 @@ spring:
           uri: http://localhost:8080
           predicates:
             - Path=/api/clientes/**
+          filters:
+            - RewritePath=/api/clientes/(?<path>.*), /$\{path}
 
         - id: servico-produto
           uri: http://localhost:8081
           predicates:
             - Path=/api/produtos/**
+          filters:
+            - RewritePath=/api/produtos/(?<path>.*), /$\{path}
 
         - id: servico-pedido
           uri: http://localhost:8082
           predicates:
             - Path=/api/pedidos/**
+          filters:
+            - RewritePath=/api/pedidos/(?<path>.*), /$\{path}
 
         - id: servico-estoque
           uri: http://localhost:8083
           predicates:
             - Path=/api/estoque/**
+          filters:
+            - RewritePath=/api/estoque/(?<path>.*), /$\{path}
+
+        - id: cliente-docs
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/clientes/v3/api-docs
+
+        - id: produto-docs
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/produtos/v3/api-docs
+
+        - id: pedido-docs
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/pedidos/v3/api-docs
+
+        - id: estoque-docs
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/estoque/v3/api-docs
+
+springdoc:
+  api-docs:
+    enabled: true
+    version: openapi_3_1
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    urls:
+      - name: Serviço Cliente
+        url: /api/clientes/v3/api-docs
+      - name: Serviço Produto
+        url: /api/produtos/v3/api-docs
+      - name: Serviço Pedido
+        url: /api/pedidos/v3/api-docs
+      - name: Serviço Estoque
+        url: /api/estoque/v3/api-docs
