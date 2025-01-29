@@ -2,12 +2,10 @@ package acc.br.techflow.estoque.service;
 
 import acc.br.techflow.estoque.dominio.Estoque;
 import acc.br.techflow.estoque.dtoRabbit.ItemPedidoRabbitMQDTO;
-import acc.br.techflow.estoque.dtoRabbit.PedidoRabbitMQDTO;
 import acc.br.techflow.estoque.repository.EstoqueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
