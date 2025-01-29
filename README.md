@@ -33,7 +33,6 @@ A arquitetura do TechFlow é composta por microsserviços que colaboram de forma
   * Gerencia o estoque dos produtos.
 * **Microsserviço de Envio**:
   * Simula o envio dos produtos aos clientes.
-<br>
 
 ## Configuração para IntelliJ IDEA (Lombok)
 
