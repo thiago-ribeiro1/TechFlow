@@ -23,10 +23,7 @@ public class EstoqueListener {
 
     @RabbitListener(queues = {"oito.fl.estoque.pedido-pago"})
     public void consomePedidos(PedidoRabbitMQDTO pedidoRabbitMQDTO) {
-        List<Integer> produtoIds = pedidoRabbitMQDTO.getProdutoIds();
-        List<Integer> quantidades = pedidoRabbitMQDTO.getQuantidades();
-
-        estoqueService.processarPedidoEstoque(produtoIds, quantidades);
+        estoqueService.atualizarEstoque(pedidoRabbitMQDTO.getItensPedido());
         atualizarStatusPedido(pedidoRabbitMQDTO);
     }
 

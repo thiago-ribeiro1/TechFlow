@@ -35,8 +35,4 @@ public interface CadastrarPedidoMapper {
     @Mapping(target = "metodoPagamento", source = "metodoPagamento")
     @Mapping(target = "endereco", source = "endereco")
     PedidoRabbitMQDTO converterEntidadeParaDTORabbitMQ(Pedido entidade);
-
-    @Mapping(target = "produtoId", source = "id")
-    @Mapping(target = "quantidade", source = "quantidadeProduto")
-    List<ItemPedidoRabbitMQDTO> converterListaEntidadeParaListaDTORabbitMQ(List<ItemPedido> listaEntidade);
 }

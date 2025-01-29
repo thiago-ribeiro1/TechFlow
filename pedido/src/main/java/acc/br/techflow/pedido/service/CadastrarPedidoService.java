@@ -10,6 +10,7 @@ import acc.br.techflow.pedido.dto.requisicao.ItemPedidoCadastrarPedidoRequisicao
 import acc.br.techflow.pedido.dto.resposta.CadastrarPedidoResposta;
 import acc.br.techflow.pedido.exception.DadoRepetidoException;
 import acc.br.techflow.pedido.mapper.CadastrarPedidoMapper;
+import acc.br.techflow.pedido.mapper.ItemPedidoRabbitMQMapper;
 import acc.br.techflow.pedido.openfeign.EstoqueOpenFeign;
 import acc.br.techflow.pedido.repository.ItemPedidoRepository;
 import acc.br.techflow.pedido.repository.PedidoRepository;
@@ -61,12 +62,15 @@ public class CadastrarPedidoService {
         pedidoRepository.save(pedido);
 
         List<ItemPedido> itensPedido = retornarListaItemPedidoEntidade(requisicao.getItensPedido(), pedido);
+        System.out.println("Entidade: " + itensPedido.get(0).getProduto().getId());
         itemPedidoRepository.saveAll(itensPedido);
 
         StatusPedido statusPedido = new StatusPedido(StatusPedidoEnum.EM_ANDAMENTO, LocalDateTime.now(), pedido);
         statusPedidoRepository.save(statusPedido);
 
         List<ItemPedidoOpenFeignDTO> itensPedidoFormatadoParaOpenFeign = CadastrarPedidoMapper.INSTANCIA.converterListaDTORequisicaoParaListaDTOOpenFeign(requisicao.getItensPedido());
+        System.out.println("Openfeign: " + itensPedidoFormatadoParaOpenFeign.get(0).getProdutoId());
+
         Boolean temEstoque = estoqueOpenFeign.validarEstoque(itensPedidoFormatadoParaOpenFeign);
 
         CadastrarPedidoResposta resposta = new CadastrarPedidoResposta(pedido.getId(), "Pedido efetuado com sucesso!");
@@ -79,7 +83,8 @@ public class CadastrarPedidoService {
         }
 
         PedidoRabbitMQDTO pedidoFormatadoParaRabbitMQ = CadastrarPedidoMapper.INSTANCIA.converterEntidadeParaDTORabbitMQ(pedido);
-        List<ItemPedidoRabbitMQDTO> itensPedidoFormatadoParaRabbitMQ = CadastrarPedidoMapper.INSTANCIA.converterListaEntidadeParaListaDTORabbitMQ(itensPedido);
+        List<ItemPedidoRabbitMQDTO> itensPedidoFormatadoParaRabbitMQ = ItemPedidoRabbitMQMapper.converterListaEntidadeParaListaDTORabbitMQ(itensPedido);
+        System.out.println("RabbitMQ: " + itensPedidoFormatadoParaRabbitMQ.get(0).getProdutoId());
         pedidoFormatadoParaRabbitMQ.setItensPedido(itensPedidoFormatadoParaRabbitMQ);
 
         enviarMensagemRabbitMQService.enviarMensagem("oito.novo.pedido", pedidoFormatadoParaRabbitMQ);
@@ -106,7 +111,7 @@ public class CadastrarPedidoService {
     private List<ItemPedido> retornarListaItemPedidoEntidade(List<ItemPedidoCadastrarPedidoRequisicao> itensPedidoRequisicao, Pedido pedido) {
         return itensPedidoRequisicao.stream().map(itemPedidoRequisicao -> {
             ItemPedido itemPedidoEntidade = new ItemPedido();
-
+            System.out.println("Produtos requisição: " + itemPedidoRequisicao.getProdutoId());
             Produto produto = consultarProdutoService.consultarPorId(itemPedidoRequisicao.getProdutoId());
 
             itemPedidoEntidade.setProduto(produto);

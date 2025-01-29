@@ -5,12 +5,12 @@ spring:
   application:
     name: pagamento
   rabbitmq:
-    host: localhost
-    username: guest
-    password: guest
-    #    host: rabbitmq.tericcabrel.com
-    #    username: admin
-    #    password: MyStrong-P4ssw0rd$
+    #    host: localhost
+    #    username: guest
+    #    password: guest
+    host: rabbitmq.tericcabrel.com
+    username: admin
+    password: MyStrong-P4ssw0rd$
     port: 5672
-#    virtual-host: /
+    virtual-host: /
 
