@@ -1,6 +1,7 @@
-package acc.br.techflow.pedido.service.rabbitmq;
+package acc.br.techflow.pagamento.service;
 
-import acc.br.techflow.pedido.dto.rabbitmq.PedidoRabbitMQDTO;
+import acc.br.techflow.pagamento.dto.PedidoRabbitMQDTO;
+import acc.br.techflow.pagamento.dto.StatusPedidoRabbitMQDTO;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,8 +23,8 @@ class EnviarMensagemRabbitMQServiceTest {
     private RabbitTemplate rabbitTemplate;
 
     @Test
-    @DisplayName("Deve enviar mensagem para o RabbitMQ com sucesso")
-    void deveEnviarMensagemParaRabbitMQ() {
+    @DisplayName("Deve enviar mensagem para a exchange de pedido do RabbitMQ com sucesso")
+    public void deveEnviarMensagemParaExchangePedido() {
         String exchamge = "oito.ex.pedido";
         String routingKeyTeste = "teste";
         PedidoRabbitMQDTO pedidoRabbitMQDTO = Instancio.of(PedidoRabbitMQDTO.class).create();
@@ -31,5 +32,17 @@ class EnviarMensagemRabbitMQServiceTest {
         servicoTestado.enviarMensagem(routingKeyTeste, pedidoRabbitMQDTO);
 
         verify(rabbitTemplate).convertAndSend(exchamge, routingKeyTeste, pedidoRabbitMQDTO);
+    }
+
+    @Test
+    @DisplayName("Deve enviar mensagem para a exchange de status do pedido do RabbitMQ com sucesso")
+    public void deveEnviarMensagemParaExchangeStatusPedido() {
+        String exchamge = "oito.ex.status-pedido";
+        String routingKeyTeste = "";
+        StatusPedidoRabbitMQDTO statusPedidoRabbitMQDTO = Instancio.of(StatusPedidoRabbitMQDTO.class).create();
+
+        servicoTestado.enviarMensagem(statusPedidoRabbitMQDTO);
+
+        verify(rabbitTemplate).convertAndSend(exchamge, routingKeyTeste, statusPedidoRabbitMQDTO);
     }
 }
