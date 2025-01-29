@@ -18,37 +18,35 @@ Esta é uma aplicação baseada em microsserviços desenvolvida para gerenciar o
 
 ## :gear: Configuração:
 
-## Dependências:
+### Dependências:
 - Java 17;
 - MySQL;
 
-## Configuração do Lombok:
+### Configuração do Lombok:
 
 Para que o Lombok funcione corretamente, siga os passos abaixo:
 
 - No Intellij IDEA:
 
-1. Abra as configurações do IntelliJ IDEA:
-   - No menu, clique em **File > Settings** (ou **Ctrl+Alt+S** no Windows/Linux, **Command+,** no macOS).
-2. Navegue até **Build, Execution, Deployment > Compiler > Annotation Processors**.
-3. Certifique-se de que as seguintes opções estão habilitadas:
-   - **Enable annotation processing**
-   - **Obtain processors from project classpath**
-4. Clique em **Apply** e depois em **OK** para salvar as configurações.
+  1. Abra as configurações do IntelliJ IDEA:
+     - No menu, clique em **File > Settings** (ou **Ctrl+Alt+S** no Windows/Linux, **Command+,** no macOS).
+  2. Navegue até **Build, Execution, Deployment > Compiler > Annotation Processors**.
+  3. Certifique-se de que as seguintes opções estão habilitadas:
+     - **Enable annotation processing**
+     - **Obtain processors from project classpath**
+  4. Clique em **Apply** e depois em **OK** para salvar as configurações.
 
-- Outras IDE's:
-
-Para demais IDE’s: Pesquise por documentações caso necessário a configuração para o correto funcionamento do Lombok.
+- Outras IDE's: Caso seja necessário configurações extras para o correto funcionamento do Lombok, pesquise por documentações.
 
 ## :computer_mouse: Passo a passo para execução:
 
-## 1. Banco de dados:
+### 1. Banco de dados:
 - **Crie o banco de dados**:
   - Gerando através do MER: [Acesse aqui](https://github.com/thiago-ribeiro1/TechFlow/blob/main/MER%20-%20PROJETO%20FINAL.mwb)
   - Gerando através do SQL Script: [Acesse aqui](https://github.com/thiago-ribeiro1/TechFlow/blob/main/TechFlow%20-%20SQL%20Script.sql)
-- **Carga inicial**: Caso queira, adicione uma carga inicial ao sistema com clientes, produtos e estoque através do SQL Carga Inicial: [Acesse aqui](https://github.com/thiago-ribeiro1/TechFlow/blob/main/TechFlow%20-%20SQL%20Carga%20Inicial.sql)
+- **Carga inicial**: Caso queira, adicione uma carga inicial de dados ao sistema com clientes, produtos e estoque através do SQL Carga Inicial: [Acesse aqui](https://github.com/thiago-ribeiro1/TechFlow/blob/main/TechFlow%20-%20SQL%20Carga%20Inicial.sql)
 
-## 2. Execute todos os serviços e a API Gateway:
+### 2. Execute todos os serviços e a API Gateway:
 
 ```bash 
 mvn spring-boot:run
@@ -61,103 +59,131 @@ mvn spring-boot:run
 - Serviço de Envio: `./envio`
 - API Gateway: `./api-gateway`
 
-## 3. Swagger e Postman:
+### 3. Swagger e Postman:
 
-## Pelo Postman:
-- [Download do arquivo Postman Collection](https://github.com/thiago-ribeiro1/TechFlow/blob/main/TechFlow.postman_collection.json)
-- Importe no seu Postman para testar as requisições.
+  #### Pelo Postman:
+  - [Download do arquivo Postman Collection](https://github.com/thiago-ribeiro1/TechFlow/blob/main/TechFlow.postman_collection.json)
+  - Importe no seu Postman para testar as requisições.
+  
+  #### Pelo Swagger:
+  
+  - Serviço de Cliente
+  ```bash
+  http://localhost:8080/swagger-ui/index.html
+  ```
+  - Serviço de Produto
+  ```bash
+  http://localhost:8081/swagger-ui/index.html
+  ```
+  - Serviço de Pedido
+  ```bash
+  http://localhost:8082/swagger-ui/index.html
+  ```
+  - Serviço de Estoque
+  ```bash
+  http://localhost:8083/swagger-ui/index.html
+  ```
 
-## Pelo Swagger:
-
-- Serviço de Cliente
-```bash
-http://localhost:8080/swagger-ui/index.html
-```
-- Serviço de Produto
-```bash
-http://localhost:8081/swagger-ui/index.html
-```
-- Serviço de Pedido
-```bash
-http://localhost:8082/swagger-ui/index.html
-```
-- Serviço de Estoque
-```bash
-http://localhost:8083/swagger-ui/index.html
-```
-- Serviço de Pagamento
-```bash
-http://localhost:8084/swagger-ui/index.html
-```
-- Serviço de Envio
-```bash
-http://localhost:8085/swagger-ui/index.html
-```
 
 ## :printer: Resumo dos serviços:
 
 A arquitetura do TechFlow é composta por microsserviços que colaboram de forma assíncrona para gerenciar o ciclo completo de uma compra online. Cada microsserviço é responsável por uma parte do processo, e a comunicação entre eles ocorre por meio de mensagens enviadas pelo RabbitMQ, garantindo uma execução eficiente.
 
 ## Endpoints dos serviços:
-Cada serviço possui endpoints específicos para suas respectivas funcionalidades. Seguem alguns exemplos:
+Cada serviço possui endpoints específicos para suas respectivas funcionalidades. Segue alguns exemplos:
 
-**Microsserviço de Cliente:**
-- `POST /clientes` - Cadastra um novo cliente.
-  ```bash
-  {
-    "nome": "Cliente",
-    "cpf": "12345678901"
-  }
-  ```
-- `GET /clientes/` - Retorna todos os clientes.
-- `GET /clientes/{id}` - Retorna os dados de um cliente.
-- `PUT /clientes/{id}` - Atualiza os dados de um cliente.
-- `DELETE /clientes/{id}` - Exclui um cliente.
-
-**Microsserviço de Produto:**
-- `POST /produtos` - Adiciona um novo produto.
-  ```bash
-  {
-      "nome": "Produto",
-      "descricao": "Descrição do Produto",
-      "valor": 150.00,
-      "estoque": {
-          "quantidade": 100
-      }
-  }
-
-  ```
-- `GET /produtos/` - Retorna todos os produtos.
-- `GET /produtos/{id}` - Retorna informações de um produto.
-- `PUT /produtos/{id}` - Atualiza um produto.
-- `DELETE /produtos/{id}` - Exclui um produto.
-
-**Microsserviço de Pedido:**
-- `POST /pedidos` - Cria um novo pedido.
+**Microsserviço de Cliente -** Pode ser chamado em *localhost:8080* ou *localhost:8086* (API Gateway):
+- `POST api/clientes` - Cadastra um novo cliente.
+  - Requisição:
     ```bash
-  {
-      "itensPedido": [
-          {
-              "produtoId": 1,
-              "quantidade": 5
-          },
-          {
-              "produtoId": 2,
-              "quantidade": 3
-          }
-      ],
-      "observacao": "Observação opcional",
-      "metodoPagamento": "PIX",
-      "endereco": "Endereço",
-      "clienteId": 1
-  }
-  ```
-- `GET /pedidos/` - Retorna todos os pedidos.
-- `GET /pedidos/{id}` - Retorna informações de um pedido.
-- `PUT /pedidos/{id}` - Atualiza um pedido.
-- `DELETE /pedidos/{id}` - Exclui um pedido.
+    {
+      "nome": "Cliente",
+      "cpf": "12345678901"
+    }
+    ```
+- `GET api/clientes` - Retorna todos os clientes.
+- `GET api/clientes/{id}` - Retorna os dados de um cliente.
+- `PUT api/clientes/{id}` - Atualiza os dados de um cliente.
+  - Requisição:
+    ```bash
+    {
+      "nome": "Cliente",
+      "cpf": "12345678901"
+    }
+    ```
+- `DELETE api/clientes/{id}` - Exclui um cliente.
 
-(...)
+**Microsserviço de Produto -** Pode ser chamado em *localhost:8081* ou *localhost:8086* (API Gateway):
+- `POST api/produtos` - Adiciona um novo produto.
+  - Requisição:
+    ```bash
+    {
+        "nome": "Produto",
+        "descricao": "Descrição do Produto",
+        "valor": 150.00,
+        "estoque": {
+            "quantidade": 100
+        }
+    }
+  
+    ```
+- `GET api/produtos` - Retorna todos os produtos.
+- `GET api/produtos/{id}` - Retorna informações de um produto.
+- `PUT api/produtos/{id}` - Atualiza um produto.
+  - Requisição:
+    ```bash
+    {
+        "nome": "Produto",
+        "descricao": "Descrição do Produto",
+        "valor": 150.00,
+        "estoque": {
+            "quantidade": 100
+        }
+    }
+  
+    ```
+- `DELETE api/produtos/{id}` - Exclui um produto.
+
+**Microsserviço de Pedido -** Pode ser chamado em *localhost:8082* ou *localhost:8086* (API Gateway):
+- `POST api/pedidos` - Cria um novo pedido.
+  - Requisição:
+    ```bash
+    {
+        "itensPedido": [
+            {
+                "produtoId": 1,
+                "quantidade": 5
+            },
+            {
+                "produtoId": 2,
+                "quantidade": 3
+            }
+        ],
+        "observacao": "Observação opcional",
+        "metodoPagamento": "PIX",
+        "endereco": "Endereço",
+        "clienteId": 1
+    }
+    ```
+- `GET api/pedidos` - Retorna todos os pedidos.
+- `GET api/pedidos/cliente/{clienteId}` - Retorna todos os pedidos de um cliente específico.
+- `GET api/pedidos/{id}` - Retorna informações mais detalhadas de um pedido.
+
+**Microsserviço de Estoque -** Pode ser chamado em *localhost:8083* ou *localhost:8086* (API Gateway):
+- `POST api/estoque/validar` - Valida se todos os produtos do array tem estoque.
+  - Requisição:
+    ```bash
+    [
+        {
+            "produtoId": 3,
+            "quantidade": 5
+        },
+        {
+            "produtoId": 4,
+            "quantidade": 3
+        }
+    ]
+    ```
 
 ## :keyboard: Fluxograma do sistema:
 
