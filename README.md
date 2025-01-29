@@ -83,6 +83,10 @@ mvn spring-boot:run
   ```bash
   http://localhost:8083/swagger-ui/index.html
   ```
+  - Serviços unificados (API Gateway)
+  ```bash
+  http://localhost:8086/swagger-ui/index.html
+  ```
 
 
 ## :printer: Resumo dos serviços:
