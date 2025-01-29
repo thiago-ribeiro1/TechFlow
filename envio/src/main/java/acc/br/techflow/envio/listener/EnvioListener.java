@@ -27,7 +27,7 @@ public class EnvioListener {
     }
 
     //para produzir mensagens
-    private void atualizarStatusPedido(PedidoRabbitMQDTO pedidoRabbitMQDTO, StatusPedidoEnum novoStatus) {
+    public void atualizarStatusPedido(PedidoRabbitMQDTO pedidoRabbitMQDTO, StatusPedidoEnum novoStatus) {
         StatusPedidoRabbitMQDTO statusPedidoDTO = new StatusPedidoRabbitMQDTO(
                 pedidoRabbitMQDTO.getPedidoId(),
                 LocalDateTime.now(),
@@ -37,7 +37,7 @@ public class EnvioListener {
         enviarMensagemRabbitMQService.enviarMensagem(statusPedidoDTO);
     }
 
-    private boolean simularEnvioPedido() {
+    public boolean simularEnvioPedido() {
         try {
             // Simulação do tempo de processamento de envio
             Thread.sleep(5000);
