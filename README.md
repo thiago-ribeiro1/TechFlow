@@ -18,11 +18,11 @@ Esta é uma aplicação baseada em microsserviços desenvolvida para gerenciar o
 
 ## :gear: Configuração:
 
-# Dependências:
+## Dependências:
 - Java 17;
 - MySQL;
 
-# Configuração do Lombok:
+## Configuração do Lombok:
 
 Para que o Lombok funcione corretamente, siga os passos abaixo:
 
@@ -42,13 +42,13 @@ Para demais IDE’s: Pesquise por documentações caso necessário a configuraç
 
 ## :computer_mouse: Passo a passo para execução:
 
-### 1. Banco de dados:
+## 1. Banco de dados:
 - **Crie o banco de dados**:
   - Gerando através do MER: [Acesse aqui](https://github.com/thiago-ribeiro1/TechFlow/blob/main/MER%20-%20PROJETO%20FINAL.mwb)
   - Gerando através do SQL Script: [Acesse aqui](https://github.com/thiago-ribeiro1/TechFlow/blob/main/TechFlow%20-%20SQL%20Script.sql)
 - **Carga inicial**: Caso queira, adicione uma carga inicial ao sistema com clientes, produtos e estoque através do SQL Carga Inicial: [Acesse aqui](https://github.com/thiago-ribeiro1/TechFlow/blob/main/TechFlow%20-%20SQL%20Carga%20Inicial.sql)
 
-### 2. Execute todos os serviços e a API Gateway:
+## 2. Execute todos os serviços e a API Gateway:
 
 ```bash 
 mvn spring-boot:run
@@ -61,13 +61,13 @@ mvn spring-boot:run
 - Serviço de Envio: `./envio`
 - API Gateway: `./api-gateway`
 
-### 3. Swagger e Postman:
+## 3. Swagger e Postman:
 
-#### Pelo Postman:
+## Pelo Postman:
 - [Download do arquivo Postman Collection](https://github.com/thiago-ribeiro1/TechFlow/blob/main/TechFlow.postman_collection.json)
 - Importe no seu Postman para testar as requisições.
 
-#### Pelo Swagger:
+## Pelo Swagger:
 
 - Serviço de Cliente
 ```bash
@@ -98,7 +98,7 @@ http://localhost:8085/swagger-ui/index.html
 
 A arquitetura do TechFlow é composta por microsserviços que colaboram de forma assíncrona para gerenciar o ciclo completo de uma compra online. Cada microsserviço é responsável por uma parte do processo, e a comunicação entre eles ocorre por meio de mensagens enviadas pelo RabbitMQ, garantindo uma execução eficiente.
 
-### Endpoints dos serviços:
+## Endpoints dos serviços:
 Cada serviço possui endpoints específicos para suas respectivas funcionalidades. Seguem alguns exemplos:
 
 **Microsserviço de Cliente:**
