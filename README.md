@@ -191,7 +191,7 @@ Cada serviço possui endpoints específicos para suas respectivas funcionalidade
 
 ## :keyboard: Fluxograma do sistema:
 
-![Image](https://github.com/user-attachments/assets/3ca81140-993b-48be-bb83-42918037cc6c)
+![Image](https://github.com/user-attachments/assets/5a47eb73-4b68-49d7-b71b-7d2a0a1d3013)
 
 ## :iphone: MER(Modelo Entidade - Relacionamento: 
 O MER está disponível diretamente no repositório. Você pode acessá-lo [aqui](https://github.com/thiago-ribeiro1/TechFlow/blob/main/MER%20-%20PROJETO%20FINAL.mwb).
