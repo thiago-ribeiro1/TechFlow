@@ -7,138 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "pedido",
-			"item": [
-				{
-					"name": "Cadastrar novo pedido",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"itensPedido\": [\r\n        {\r\n            \"produtoId\": 3,\r\n            \"quantidade\": 5\r\n        },\r\n        {\r\n            \"produtoId\": 4,\r\n            \"quantidade\": 3\r\n        }\r\n    ],\r\n    \"observacao\": \"Observação opcional\",\r\n    \"metodoPagamento\": \"PIX\",\r\n    \"endereco\": \"Endereço\",\r\n    \"clienteId\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8082/api/pedidos",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8082",
-							"path": [
-								"api",
-								"pedidos"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Listar todos os pedidos",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8082/api/pedidos",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8082",
-							"path": [
-								"api",
-								"pedidos"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Listar todos os pedidos por cliente",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8082/api/pedidos/cliente/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8082",
-							"path": [
-								"api",
-								"pedidos",
-								"cliente",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Consultar pedido por ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8082/api/pedidos/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8082",
-							"path": [
-								"api",
-								"pedidos",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "estoque",
-			"item": [
-				{
-					"name": "Validar estoque",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\r\n    {\r\n        \"produtoId\": 3,\r\n        \"quantidade\": 5\r\n    },\r\n    {\r\n        \"produtoId\": 4,\r\n        \"quantidade\": 3\r\n    }\r\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8083/api/estoque/validar",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8083",
-							"path": [
-								"api",
-								"estoque",
-								"validar"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "cliente",
 			"item": [
 				{
@@ -148,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Cliente\",\r\n    \"cpf\": \"23454327\"\r\n}",
+							"raw": "{\r\n    \"nome\": \"Cliente Cadastrado\",\r\n    \"cpf\": \"50235432143\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -177,7 +45,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Cliente editado\",\r\n    \"cpf\": \"234543213\"\r\n}",
+							"raw": "{\r\n    \"nome\": \"Cliente Editado\",\r\n    \"cpf\": \"30752032143\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -307,7 +175,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Produto\",\r\n    \"descricao\": \"Descricao\",\r\n    \"valor\": 10.50,\r\n    \"quantidade\": 5\r\n}",
+							"raw": "{\r\n    \"nome\": \"Produto Cadastrado\",\r\n    \"descricao\": \"Descrição produto\",\r\n    \"valor\": 200.50,\r\n    \"estoque\": {\r\n        \"quantidade\": 100\r\n    }\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -336,7 +204,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Produto editado\",\r\n    \"descricao\": \"Descricao\",\r\n    \"valor\": 10.50,\r\n    \"quantidade\": 5\r\n}",
+							"raw": "{\r\n    \"nome\": \"Produto Editado\",\r\n    \"descricao\": \"Descricao editada\",\r\n    \"valor\": 300.90,\r\n    \"estoque\": {\r\n        \"quantidade\": 100\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -344,7 +212,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/api/produtos/6",
+							"raw": "http://localhost:8081/api/produtos/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -353,7 +221,7 @@
 							"path": [
 								"api",
 								"produtos",
-								"6"
+								"1"
 							]
 						}
 					},
@@ -439,7 +307,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/api/produtos/3",
+							"raw": "http://localhost:8081/api/produtos/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -448,7 +316,139 @@
 							"path": [
 								"api",
 								"produtos",
-								"3"
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "pedido",
+			"item": [
+				{
+					"name": "Cadastrar novo pedido",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"itensPedido\": [\r\n        {\r\n            \"produtoId\": 3,\r\n            \"quantidade\": 5\r\n        },\r\n        {\r\n            \"produtoId\": 4,\r\n            \"quantidade\": 3\r\n        }\r\n    ],\r\n    \"observacao\": \"Observação opcional\",\r\n    \"metodoPagamento\": \"PIX\",\r\n    \"endereco\": \"Endereço\",\r\n    \"clienteId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/api/pedidos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar todos os pedidos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/api/pedidos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar todos os pedidos por cliente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/api/pedidos/cliente/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"pedidos",
+								"cliente",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultar pedido por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/api/pedidos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"pedidos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "estoque",
+			"item": [
+				{
+					"name": "Validar estoque",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"produtoId\": 3,\r\n        \"quantidade\": 5\r\n    },\r\n    {\r\n        \"produtoId\": 4,\r\n        \"quantidade\": 3\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/estoque/validar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"estoque",
+								"validar"
 							]
 						}
 					},
